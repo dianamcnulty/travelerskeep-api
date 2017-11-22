@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :photos
   resources :vacations
   resources :examples
   post '/sign-up' => 'users#signup'

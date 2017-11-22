@@ -7,7 +7,6 @@ class CreateVacations < ActiveRecord::Migration[5.1]
       t.string :month
       t.integer :year, null: false
       t.string :companions
-
       t.timestamps
     end
   end
