@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :stories
-  resources :photos
-  resources :vacations
-  resources :examples
+  resources :stories, except: %i[new edit]
+  resources :photos, except: %i[new edit]
+  resources :vacations, except: %i[new edit]
+  resources :examples, except: %i[new edit]
   post '/sign-up' => 'users#signup'
   post '/sign-in' => 'users#signin'
   delete '/sign-out/:id' => 'users#signout'
