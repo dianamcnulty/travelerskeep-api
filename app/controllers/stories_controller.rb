@@ -1,9 +1,9 @@
-class StoriesController < ApplicationController
+class StoriesController < ProtectedController
   before_action :set_story, only: %i[show update destroy]
 
   # GET /stories
   def index
-    @stories = Story.all
+    @stories = current_user.stories.all
 
     render json: @stories
   end
@@ -15,7 +15,7 @@ class StoriesController < ApplicationController
 
   # POST /stories
   def create
-    @story = Story.new(story_params)
+    @story = current_user.stories.new(story_params)
 
     if @story.save
       render json: @story, status: :created, location: @story
@@ -41,7 +41,7 @@ class StoriesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_story
-      @story = Story.find(params[:id])
+      @story = current_user.stories.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

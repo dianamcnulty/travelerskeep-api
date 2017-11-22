@@ -35,3 +35,6 @@ Scripts are included in [`scripts`](scripts) to test actions.
 | POST   | `/sign-in`             | `users#signin`    |
 | PATCH  | `/change-password/:id` | `users#changepw`  |
 | DELETE | `/sign-out/:id`        | `users#signout`   |
+
+
+## ERD
