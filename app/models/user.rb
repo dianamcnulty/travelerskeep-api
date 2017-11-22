@@ -2,5 +2,7 @@
 
 class User < ApplicationRecord
   include Authentication
-  has_many :examples
+  has_many :vacations
+  has_many :photos, through: :vacations
+  has_many :stories, through: :vacations
 end
