@@ -15,7 +15,7 @@ class VacationsController < ProtectedController
 
   # POST /vacations
   def create
-    @vacation = current_user.vacations.build(example_params)
+    @vacation = current_user.vacations.build(vacation_params)
 
     if @vacation.save
       render json: @vacation, status: :created, location: @vacation
