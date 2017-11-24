@@ -1,5 +1,5 @@
 class CountriesController < ApplicationController
-  before_action :set_country, only: [:show, :update, :destroy]
+  before_action :set_country, only: [:show]
 
   # GET /countries
   def index
@@ -19,8 +19,4 @@ class CountriesController < ApplicationController
       @country = Country.find(params[:id])
     end
 
-    # Only allow a trusted parameter "white list" through.
-    def country_params
-      params.require(:country).permit(:name, :code)
-    end
 end
