@@ -3,7 +3,7 @@ class VacationsController < ProtectedController
 
   # GET /vacations
   def index
-    @vacations = current_user.vacations.all
+    @vacations = current_user.vacations.all.order('year asc')
 
     render json: @vacations
   end
