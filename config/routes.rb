@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :countries
   resources :stories, except: %i[new edit]
   resources :photos, except: %i[new edit]
   resources :vacations, except: %i[new edit]
