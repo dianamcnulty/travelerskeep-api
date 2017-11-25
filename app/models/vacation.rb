@@ -1,5 +1,5 @@
 class Vacation < ApplicationRecord
   belongs_to :user
-  has_many :photos
-  has_many :stories
+  has_many :photos, dependent: :destroy
+  has_many :stories, dependent: :destroy
 end
