@@ -18,13 +18,17 @@ class PhotosController < ProtectedController
 
   # POST /photos
   def create
-    @photo = current_user.photos.build(photo_params)
+    puts 'image params are', photo_params['file']
 
-    if @photo.save
-      render json: @photo, status: :created, location: @photo
-    else
-      render json: @photo.errors, status: :unprocessable_entity
-    end
+    @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
+
+    # @photo = current_user.photos.build(photo_params)
+
+    # if @photo.save
+    #   render json: @photo, status: :created, location: @photo
+    # else
+    #   render json: @photo.errors, status: :unprocessable_entity
+    # end
   end
 
   # PATCH/PUT /photos/1
@@ -49,9 +53,9 @@ class PhotosController < ProtectedController
   end
 
   # Only allow a trusted parameter "white list" through.
-  # def photo_params
-  #   params.require(:photo).permit(:url, :caption, :vacation_id)
-  # end
+  def photo_params
+    params.require(:image).permit(:title, :file)
+  end
 
   def set_s3_direct_post
     @s3_direct_post = S3_BUCKET.presigned_post(
