@@ -1,9 +1,10 @@
-class PhotosController < ApplicationController
-  before_action :set_photo, only: [:show, :update, :destroy]
 
+class PhotosController < ProtectedController
+  before_action :set_photo, only: %i[show update destroy]
+  before_action :set_s3_direct_post, only: %i[new edit create update]
   # GET /photos
   def index
-    @photos = Photo.all
+    @photos = current_user.photos.all
 
     render json: @photos
   end
@@ -15,7 +16,7 @@ class PhotosController < ApplicationController
 
   # POST /photos
   def create
-    @photo = Photo.new(photo_params)
+    @photo = current_user.photos.build(photo_params)
 
     if @photo.save
       render json: @photo, status: :created, location: @photo
@@ -39,13 +40,22 @@ class PhotosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_photo
-      @photo = Photo.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def photo_params
-      params.require(:photo).permit(:url, :caption, :vacation_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_photo
+    @photo = current_user.photos.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def photo_params
+    params.require(:photo).permit(:img, :caption, :vacation_id)
+  end
+
+  def set_s3_direct_post
+    @s3_direct_post = S3_BUCKET.presigned_post(
+      key: "uploads/#{SecureRandom.uuid}/${filename}",
+      success_action_status: '201',
+      acl: 'public-read'
+    )
+  end
 end

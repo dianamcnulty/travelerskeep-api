@@ -1,9 +1,9 @@
-class VacationsController < ApplicationController
+class VacationsController < ProtectedController
   before_action :set_vacation, only: %i[show update destroy]
 
   # GET /vacations
   def index
-    @vacations = Vacation.all
+    @vacations = current_user.vacations.all.order('year asc')
 
     render json: @vacations
   end
@@ -15,7 +15,7 @@ class VacationsController < ApplicationController
 
   # POST /vacations
   def create
-    @vacation = Vacation.new(vacation_params)
+    @vacation = current_user.vacations.build(vacation_params)
 
     if @vacation.save
       render json: @vacation, status: :created, location: @vacation
@@ -42,7 +42,7 @@ class VacationsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_vacation
-    @vacation = Vacation.find(params[:id])
+    @vacation = current_user.vacations.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
