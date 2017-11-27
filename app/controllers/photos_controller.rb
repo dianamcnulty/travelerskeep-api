@@ -1,8 +1,6 @@
 
 class PhotosController < ProtectedController
-  # require_relative '../../config/initializers/aws.rb'
   before_action :set_photo, only: %i[show update destroy]
-  # before_action :set_s3_direct_post, only: %i[new edit create update]
 
   # GET /photos
   def index
@@ -52,12 +50,4 @@ class PhotosController < ProtectedController
   def photo_params
     params.require(:photo).permit(:img, :caption, :vacation_id)
   end
-
-  # def set_s3_direct_post
-  #   @s3_direct_post = S3_BUCKET.presigned_post(
-  #     key: "uploads/#{SecureRandom.uuid}/${filename}",
-  #     success_action_status: '201',
-  #     acl: 'public-read'
-  #   )
-  # end
 end
