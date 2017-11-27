@@ -54,7 +54,7 @@ class PhotosController < ProtectedController
 
   # Only allow a trusted parameter "white list" through.
   def photo_params
-    params.require(:image).permit(:title, :file)
+    params.require(:photo).permit(:img, :caption, :vacation_id)
   end
 
   def set_s3_direct_post
