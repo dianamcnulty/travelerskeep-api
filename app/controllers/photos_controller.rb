@@ -2,7 +2,7 @@
 class PhotosController < ProtectedController
   # require_relative '../../config/initializers/aws.rb'
   before_action :set_photo, only: %i[show update destroy]
-  before_action :set_s3_direct_post, only: %i[new edit create update]
+  # before_action :set_s3_direct_post, only: %i[new edit create update]
 
   # GET /photos
   def index
@@ -18,17 +18,13 @@ class PhotosController < ProtectedController
 
   # POST /photos
   def create
-    puts 'image params are', photo_params['file']
+    @photo = current_user.photos.build(photo_params)
 
-    @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
-
-    # @photo = current_user.photos.build(photo_params)
-
-    # if @photo.save
-    #   render json: @photo, status: :created, location: @photo
-    # else
-    #   render json: @photo.errors, status: :unprocessable_entity
-    # end
+    if @photo.save
+      render json: @photo, status: :created, location: @photo
+    else
+      render json: @photo.errors, status: :unprocessable_entity
+    end
   end
 
   # PATCH/PUT /photos/1
