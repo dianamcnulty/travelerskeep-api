@@ -10,14 +10,14 @@
   curl "${API}${URL_PATH}" \
     --include \
     --request POST \
-    --header "Content-Type: multipart/form-data" \
+    --header "Content-Type: application/json" \
     --header "Authorization: Token token=$TOKEN" \
-    --header "Accept: application/json"
+    --header "Accept: application/json" \
     --data '{
       "photo": {
         "caption": "'"ThePhotoCaption!!"'",
         "img": "'"'../../documentation/ERD-travelers-keep.png';type=image/png"'",
-        "vacation_id":"'"2"'"
+        "vacation_id":"'"28"'"
       }
     }'
 
