@@ -10,6 +10,7 @@ gem 'puma', '~> 3.0'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.1.3'
 gem "paperclip", "~> 5.0"
+gem 'aws-sdk', '2.10.47'
 
 group :development, :test do
   gem 'byebug', platform: :mri
