@@ -4,7 +4,10 @@ class PhotosController < ProtectedController
   before_action :set_s3_direct_post, only: %i[new edit create update]
   # GET /photos
   def index
-    @photos = current_user.photos.all
+    # puts params.photo.vacation_id
+    # param_id = params.photo.vacation_id
+    # @photos = current_user.photos.where('vacation_id = ?', param_id)
+    current_user.photos.all
 
     render json: @photos
   end

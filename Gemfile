@@ -11,10 +11,10 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.1.3'
 gem "paperclip", "~> 5.0"
 gem 'aws-sdk', '2.10.47'
+gem 'dotenv-rails', '~> 2.2.1'
 
 group :development, :test do
   gem 'byebug', platform: :mri
-  gem 'dotenv-rails', '~> 2.2.1'
   gem 'pry', '~> 0.10.4'
   gem 'pry-byebug', '~> 3.4.3'
   gem 'rspec-rails', '~> 3.6.1'
